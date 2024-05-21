@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Link Shortener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: calc(50% - 15px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: calc(50% - 15px);
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .shortened-link {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .shortened-link input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Custom Link Shortener</h1>
+        <form id="shorten-form">
+            <input type="text" id="custom-name" placeholder="Enter custom name (optional)">
+            <input type="text" id="original-url" placeholder="Enter your long URL" required>
+            <input type="submit" value="Shorten">
+        </form>
+        <div class="shortened-link" id="shortened-link" style="display: none;">
+            <input type="text" id="short-url" readonly>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const shortenForm = document.getElementById('shorten-form');
+            const shortenedLink = document.getElementById('shortened-link');
+            const shortUrlInput = document.getElementById('short-url');
+
+            // Function to generate a shortened URL with custom name
+            const generateShortUrl = (customName, originalUrl) => {
+                let shortUrl;
+                if (customName.trim() !== '') {
+                    shortUrl = `https://gamewebs.com/${customName}`; // Replace with your domain
+                } else {
+                    const shortCode = Math.random().toString(36).substring(2, 8);
+                    shortUrl = `https://example.com/${shortCode}`; // Replace with your domain
+                }
+                return shortUrl;
+            };
+
+            // Event listener for form submission
+            shortenForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const customName = document.getElementById('custom-name').value;
+                const originalUrl = document.getElementById('original-url').value;
+                const shortUrl = generateShortUrl(customName, originalUrl);
+                shortUrlInput.value = shortUrl;
+                shortenedLink.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
